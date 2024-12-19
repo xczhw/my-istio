@@ -2319,8 +2319,8 @@ data:
           }
         },
         "externalIstiod": false,
-        "hub": "docker.io/istio",
-        "imagePullPolicy": "",
+        "hub": "node0:5000/istio",
+        "imagePullPolicy": "Always",
         "imagePullSecrets": [],
         "istioNamespace": "istio-system",
         "istiod": {
