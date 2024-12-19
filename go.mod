@@ -6,6 +6,7 @@ go 1.23
 replace github.com/imdario/mergo => github.com/imdario/mergo v0.3.5
 
 replace istio.io/api => /mydata/istio/api
+
 replace github.com/envoyproxy/go-control-plane => /mydata/istio/go-control-plane
 
 require (
