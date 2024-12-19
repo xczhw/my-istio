@@ -5,6 +5,9 @@ go 1.23
 // Client-go does not handle different versions of mergo due to some breaking changes - use the matching version
 replace github.com/imdario/mergo => github.com/imdario/mergo v0.3.5
 
+replace istio.io/api => /mydata/istio/api
+replace github.com/envoyproxy/go-control-plane => /mydata/istio/go-control-plane
+
 require (
 	cloud.google.com/go/compute/metadata v0.5.2
 	github.com/AdaLogics/go-fuzz-headers v0.0.0-20240806141605-e8a1dd7889d6
