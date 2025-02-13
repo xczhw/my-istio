@@ -23,6 +23,8 @@ ARG SIDECAR=envoy
 # Copy Envoy bootstrap templates used by pilot-agent
 COPY envoy_bootstrap.json /var/lib/istio/envoy/envoy_bootstrap_tmpl.json
 
+# TODO: delete this line after the following issue is fixed
+RUN rm -f /usr/local/bin/${SIDECAR}
 # Install Envoy.
 ARG TARGETARCH
 COPY ${TARGETARCH:-amd64}/${SIDECAR} /usr/local/bin/${SIDECAR}

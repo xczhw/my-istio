@@ -307,6 +307,9 @@ func archToEnvMap(a string) map[string]string {
 
 // RunCommand runs a command for the repo, with standard environment variables set
 func RunCommand(args Args, c string, cargs ...string) error {
+	// fmt.Println("RunCommand call stack:")
+	// debug.PrintStack()
+
 	cmd := VerboseCommand(c, cargs...)
 	cmd.Env = StandardEnv(args)
 	cmd.Stderr = os.Stderr
