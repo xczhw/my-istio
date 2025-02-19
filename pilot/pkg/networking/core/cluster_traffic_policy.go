@@ -15,6 +15,7 @@
 package core
 
 import (
+	"fmt"
 	"math"
 
 	cluster "github.com/envoyproxy/go-control-plane/envoy/config/cluster/v3"
@@ -229,6 +230,7 @@ func (cb *ClusterBuilder) applyDefaultConnectionPool(cluster *cluster.Cluster) {
 func applyLoadBalancer(c *cluster.Cluster, lb *networking.LoadBalancerSettings, port *model.Port,
 	locality *core.Locality, proxyLabels map[string]string, meshConfig *meshconfig.MeshConfig,
 ) {
+	fmt.Println("🔥 applyLoadBalancer called! LoadBalancerSettings:", lb)
 	// Disable panic threshold when SendUnhealthyEndpoints is enabled as enabling it "may" send traffic to unready
 	// end points when load balancer is in panic mode.
 	if features.SendUnhealthyEndpoints.Load() {
@@ -263,7 +265,12 @@ func applyLoadBalancer(c *cluster.Cluster, lb *networking.LoadBalancerSettings, 
 		c.ClusterDiscoveryType = &cluster.Cluster_Type{Type: cluster.Cluster_ORIGINAL_DST}
 		// Wipe out any LoadAssignment, if set. This can occur when we have a STATIC Service but PASSTHROUGH traffic policy
 		c.LoadAssignment = nil
+	case networking.LoadBalancerSettings_CUSTOMIZED:
+		log.Infof("Applying CUSTOMIZED load balancing policy")
+		fmt.Println("🔥🔥 Applying CUSTOMIZED load balancing policy!")
+		c.LbPolicy = cluster.Cluster_CUSTOMIZED // 确保 Envoy 端支持 CUSTOMIZED
 	default:
+		fmt.Println("⚠️ Unexpected load balancer setting:", lb.GetSimple())
 		applySimpleDefaultLoadBalancer(c, lb)
 	}
 
