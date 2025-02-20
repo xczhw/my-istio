@@ -126,18 +126,19 @@ mkdir -p "${TARGET_OUT}"
 # Set the value of DOWNLOAD_COMMAND (either curl or wget)
 set_download_command
 
-if [[ -n "${DEBUG_IMAGE:-}" ]]; then
-  # Download and extract the Envoy linux debug binary.
-  download_envoy_if_necessary "${ISTIO_ENVOY_LINUX_DEBUG_URL}" "$ISTIO_ENVOY_LINUX_DEBUG_PATH" "${SIDECAR}"
-else
-  echo "Skipping envoy debug. Set DEBUG_IMAGE to download."
-fi
+# if [[ -n "${DEBUG_IMAGE:-}" ]]; then
+#   # Download and extract the Envoy linux debug binary.
+#   download_envoy_if_necessary "${ISTIO_ENVOY_LINUX_DEBUG_URL}" "$ISTIO_ENVOY_LINUX_DEBUG_PATH" "${SIDECAR}"
+# else
+#   echo "Skipping envoy debug. Set DEBUG_IMAGE to download."
+# fi
 
 # Download and extract the Envoy linux release binary.
 # download_envoy_if_necessary "${ISTIO_ENVOY_LINUX_RELEASE_URL}" "$ISTIO_ENVOY_LINUX_RELEASE_PATH" "${SIDECAR}"
 # TODO: Uncomment this line when uploading the envoy binary to the release bucket.
 # ISTIO_ENVOY_NATIVE_PATH=${ISTIO_ENVOY_LINUX_RELEASE_PATH}
-ISTIO_ENVOY_NATIVE_PATH="/work/envoy"
+ISTIO_ENVOY_NATIVE_PATH="/work/out/envoy"
+cp -f "${ISTIO_ENVOY_NATIVE_PATH}" "${ISTIO_ENVOY_LINUX_RELEASE_DIR}/${SIDECAR}"
 
 # Copy native envoy binary to TARGET_OUT
 echo "Copying ${ISTIO_ENVOY_NATIVE_PATH} to ${TARGET_OUT}/${SIDECAR}"
