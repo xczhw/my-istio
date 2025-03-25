@@ -137,6 +137,7 @@ set_download_command
 # download_envoy_if_necessary "${ISTIO_ENVOY_LINUX_RELEASE_URL}" "$ISTIO_ENVOY_LINUX_RELEASE_PATH" "${SIDECAR}"
 # TODO: Uncomment this line when uploading the envoy binary to the release bucket.
 # ISTIO_ENVOY_NATIVE_PATH=${ISTIO_ENVOY_LINUX_RELEASE_PATH}
+mkdir -p "$(dirname "${ISTIO_ENVOY_LINUX_RELEASE_PATH}")"
 ISTIO_ENVOY_NATIVE_PATH="/work/out/envoy"
 cp -f "${ISTIO_ENVOY_NATIVE_PATH}" "${ISTIO_ENVOY_LINUX_RELEASE_DIR}/${SIDECAR}"
 
